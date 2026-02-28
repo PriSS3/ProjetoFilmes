@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meu Catálogo de Filmes</title>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+    <h1>Catálogo de Filmes</h1>
+    
+    <div class="lista">
+        {% for filme in lista_filmes %}
+            <div class="cartao">
+                <h2>{{ filme.titulo }}</h2>
+                <p><strong>Ano:</strong> {{ filme.ano }} | <strong>Gênero:</strong> {{ filme.genero }}</p>
+                <p>{{ filme.sinopse }}</p>
+            </div>
+        {% empty %}
+            <p>Nenhum filme cadastrado ainda.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
