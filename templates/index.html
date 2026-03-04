@@ -1,24 +1,50 @@
-{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Meu Catálogo de Filmes</title>
-    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Filmes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; }
+        .btn { display: inline-block; background: #e50914; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; margin-bottom: 20px; font-weight: bold; }
+        .btn:hover { background: #b20710; }
+        .filme-card { border-bottom: 1px solid #ddd; padding: 20px 0; }
+        .filme-card:last-child { border-bottom: none; }
+        .genero { color: #666; font-style: italic; font-size: 0.9em; }
+        .acoes { margin-top: 10px; }
+        .btn-editar { color: #007bff; text-decoration: none; font-weight: bold; margin-right: 15px; }
+        .btn-excluir { color: #dc3545; text-decoration: none; font-weight: bold; }
+        .btn-editar:hover, .btn-excluir:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-    <h1>Catálogo de Filmes</h1>
-    
-    <div class="lista">
-        {% for filme in lista_filmes %}
-            <div class="cartao">
-                <h2>{{ filme.titulo }}</h2>
-                <p><strong>Ano:</strong> {{ filme.ano }} | <strong>Gênero:</strong> {{ filme.genero }}</p>
-                <p>{{ filme.sinopse }}</p>
-            </div>
-        {% empty %}
-            <p>Nenhum filme cadastrado ainda.</p>
-        {% endfor %}
+
+    <div class="container">
+        <h1>🎬 Meus Filmes</h1>
+        
+        <a href="{% url 'cadastrar_filme' %}" class="btn">+ Adicionar Novo Filme</a>
+
+        <div class="lista">
+            {% for filme in lista_filmes %}
+                <div class="filme-card">
+                    <h3>{{ filme.titulo }} ({{ filme.ano }})</h3>
+                    <p class="genero">Gênero: {{ filme.genero }}</p>
+                    <p>{{ filme.sinopse }}</p>
+                    
+                    <div class="acoes">
+                        <a href="{% url 'editar_filme' filme.id %}" class="btn-editar">Editar</a>
+                        <a href="{% url 'excluir_filme' filme.id %}" 
+                           class="btn-excluir" 
+                           onclick="return confirm('Tem certeza que deseja excluir este filme?')">Excluir</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p style="text-align: center; color: #888;">Nenhum filme cadastrado ainda.</p>
+            {% endfor %}
+        </div>
     </div>
+
 </body>
 </html>
-
