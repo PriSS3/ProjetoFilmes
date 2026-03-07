@@ -1,13 +1,13 @@
-from django.shortcuts import render, redirect # Adicione o redirect aqui
+from django.shortcuts import render, redirect 
 from .models import Filme
-from .forms import FilmeForm # Importe o form que criamos acima
+from .forms import FilmeForm
 from django.shortcuts import render, redirect, get_object_or_404
 
 def index(request):
     filmes = Filme.objects.all()
     return render(request, 'index.html', {'lista_filmes': filmes})
 
-# ADICIONE ESTA FUNÇÃO NOVA:
+
 def novo_filme(request):
     if request.method == 'POST':
         form = FilmeForm(request.POST)
@@ -20,7 +20,6 @@ def novo_filme(request):
 
 def editar_filme(request, id):
     filme = get_object_or_404(Filme, id=id)
-    # O 'instance=filme' preenche o formulário com os dados atuais do filme
     form = FilmeForm(request.POST or None, instance=filme)
     
     if form.is_valid():

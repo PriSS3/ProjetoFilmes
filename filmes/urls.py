@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # O endereço vazio (home) agora chama a função index
+    
     path('', views.index, name='index'), 
     path('novo/', views.novo_filme, name='cadastrar_filme'),
     path('editar/<int:id>/', views.editar_filme, name='editar_filme'),
